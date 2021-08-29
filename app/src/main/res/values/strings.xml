@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Best Films</string>
+    <string name="title">Title</string>
+    <string name="country">Country</string>
+    <string name="year">Year</string>
+    <string name="add_button">Add film</string>
+    <string name="update_button">Update film</string>
+
+</resources>
