@@ -43,12 +43,15 @@ class AddFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun insertDataToDatabase() {
-        val title = binding.editTitle.text.toString()
-        val country = binding.editCountry.text.toString()
-        val year = binding.editYear.text
 
-        if(inputCheck(title, country, year)){
+
+        if(inputCheck(binding.editTitle.text.toString(),
+                binding.editCountry.text.toString(),
+                binding.editYear.text.toString())){
             //create film object
+            val title = binding.editTitle.text.toString()
+            val country = binding.editCountry.text.toString()
+            val year = binding.editYear.text
             val film = Film(0,title, country, Integer.parseInt(year.toString()))
 
             //Add data to database
@@ -62,8 +65,8 @@ class AddFragment : Fragment() {
         }
     }
 
-    private fun inputCheck (title: String, country:String, year: Editable): Boolean{
-        return !(TextUtils.isEmpty(title)&& TextUtils.isEmpty(country)&&year.isEmpty())
+    private fun inputCheck (title: String, country:String, year: String): Boolean{
+        return !(title.isBlank() || country.isBlank() || year.isBlank())
     }
 
     override fun onDestroyView() {

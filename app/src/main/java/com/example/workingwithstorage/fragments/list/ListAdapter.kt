@@ -19,10 +19,10 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>(){
             textCountry.text = film.country
             textYear.text = film.year.toString()
 
-//            itemViewFilm.setOnClickListener {
-//                val action = ListFragmentDirections.actionListFragmentToUpdateFragment(film)//тут на всякий случай пометка, если ломается то это здесь.
-//                itemViewFilm.findNavController().navigate(action)
-//            }
+            itemViewFilm.setOnClickListener {
+                val action = ListFragmentDirections.actionListFragmentToUpdateFragment(film)//тут на всякий случай пометка, если ломается то это здесь.
+                itemViewFilm.findNavController().navigate(action)
+            }
         }
 
     }
