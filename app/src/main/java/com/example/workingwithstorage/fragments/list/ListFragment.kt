@@ -1,14 +1,15 @@
 package com.example.workingwithstorage.fragments.list
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import com.example.workingwithstorage.R
+import com.example.workingwithstorage.common.logDebug
 import com.example.workingwithstorage.databinding.FragmentListBinding
 import com.example.workingwithstorage.viewmodel.FilmViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -20,6 +21,7 @@ class ListFragment : Fragment() {
     @InternalCoroutinesApi
     private lateinit var mFilmViewModel: FilmViewModel
     private val adapter = ListAdapter()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +41,45 @@ class ListFragment : Fragment() {
         //RecyclerView
         binding.recycler.adapter = adapter
 
-        //UserViewModel
+        //FilmViewModel
         mFilmViewModel = ViewModelProvider(this).get(FilmViewModel::class.java)
-        mFilmViewModel.readAllData.observe(viewLifecycleOwner, Observer {user ->
-            adapter.setData(user)
+        mFilmViewModel.allFilm.observe(viewLifecycleOwner, Observer {film  ->
+            adapter.setData(film)
         })
+
+        //add menu
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.filter_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        findNavController().navigate(R.id.action_listFragment_to_filterFragment)
+        return super.onOptionsItemSelected(item)
+    }
+
+    @InternalCoroutinesApi
+    var listener: SharedPreferences.OnSharedPreferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            when (key) {
+                "prefTitle" -> mFilmViewModel.sortedByTitle()
+                "prefCountry" -> mFilmViewModel.sortedByCountry()
+                "prefYear" -> mFilmViewModel.sortedByYear()
+
+            }
+            logDebug(" ключ $key")
+        }
+
+    @InternalCoroutinesApi
+    override fun onResume() {
+        super.onResume()
+        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        logDebug("preferences $preferences")
+        preferences.registerOnSharedPreferenceChangeListener(listener)
+
     }
 
     override fun onDestroyView() {

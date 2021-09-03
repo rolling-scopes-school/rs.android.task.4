@@ -1,11 +1,29 @@
 package com.example.workingwithstorage.repository
 
-import androidx.lifecycle.LiveData
+
 import com.example.workingwithstorage.data.FilmDao
 import com.example.workingwithstorage.model.Film
+import kotlinx.coroutines.flow.Flow
+
 
 class FilmRepository (private val filmDao: FilmDao) {
-    val readAllData: LiveData<List<Film>> = filmDao.readAllData()
+
+
+    fun getAll (): Flow<List<Film>> {
+        return filmDao.readAllData()
+    }
+
+    fun sortedByTitle (): Flow<List<Film>> {
+        return filmDao.sortedByTitle()
+    }
+
+    fun sortedByCountry (): Flow<List<Film>> {
+        return filmDao.sortedByCountry()
+    }
+
+    fun sortedByYear (): Flow<List<Film>> {
+        return filmDao.sortedByYear()
+    }
 
     suspend fun addFilm(film: Film){
         filmDao.addFilm(film)

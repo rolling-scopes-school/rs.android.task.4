@@ -52,8 +52,6 @@ class UpdateFragment : Fragment() {
     }
     @InternalCoroutinesApi
     private fun updateItem() {
-
-
         if (inputCheck(binding.updateTitle.text.toString(),
                 binding.updateCountry.text.toString(),
                 binding.updateYear.text.toString() )){

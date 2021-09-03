@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:key="prefTitle"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/setting_title"
+        android:title="@string/title"
+        app:defaultValue="false" />
+    <SwitchPreference
+        app:defaultValue="false"
+        android:key="prefCountry"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/country"
+        android:summary="@string/setting_country" />
+    <SwitchPreference
+        android:key="prefYear"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/setting_year"
+        android:title="@string/year"
+        app:defaultValue="false" />
+</PreferenceScreen>

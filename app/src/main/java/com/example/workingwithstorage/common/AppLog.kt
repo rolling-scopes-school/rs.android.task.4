@@ -7,3 +7,4 @@ var debug = "AppDebug"
 fun logDebug(message: String) {
     Log.d(debug, message)
 }
+

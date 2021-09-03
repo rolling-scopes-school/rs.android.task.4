@@ -10,7 +10,7 @@ import com.example.workingwithstorage.databinding.ItemBinding
 import com.example.workingwithstorage.model.Film
 
 class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>(){
-    private var filmList = emptyList<Film>()
+    private var filmList =  emptyList<Film>()
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val binding = ItemBinding.bind(itemView)
