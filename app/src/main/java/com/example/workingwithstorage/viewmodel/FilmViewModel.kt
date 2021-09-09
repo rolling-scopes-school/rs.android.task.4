@@ -1,19 +1,15 @@
 package com.example.workingwithstorage.viewmodel
 
 import android.app.Application
-import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.preference.PreferenceManager
-import com.example.workingwithstorage.common.OrderSort
 import com.example.workingwithstorage.data.FilmDatabase
 import com.example.workingwithstorage.model.Film
 import com.example.workingwithstorage.repository.FilmRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 @InternalCoroutinesApi
