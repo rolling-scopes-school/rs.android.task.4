@@ -15,7 +15,7 @@ class StudentDetailViewModel : ViewModel() {
         Transformations.switchMap(studentIdLiveData) { studentID ->
             studentRepository.getStudent(studentID)
         }
-    
+
     fun loadStudent(studentID: Int) {
         studentIdLiveData.value = studentID
     }

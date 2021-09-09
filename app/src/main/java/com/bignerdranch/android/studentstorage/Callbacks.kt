@@ -6,5 +6,5 @@ interface Callbacks {
     fun onCreateNewStudent()
     fun onStudentSelected(studentID: Int)
     fun onSortSelected()
-    fun onMainScreen(isNewStudent: Boolean?, student: Student?, sortingMode: String)
+    fun onMainScreen(student: Student?, sortingMode: String)
 }

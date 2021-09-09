@@ -17,6 +17,8 @@
     <string name="rating">rating</string>
 
     <string name="add">Add</string>
+    <string name="delete" translatable="false">Delete</string>
+
     <string name="adding_notification">Student added in database!</string>
     <string name="updated">List updated!</string>
 

@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
         val currentFragment = fm.findFragmentById(R.id.fragment_container)
 
         if (currentFragment == null) {
-            val fragment = StudentListFragment.newInstance()
+            val fragment = StudentListFragment.newInstance(sortingMode = "name")
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit()
         }
     }
@@ -38,9 +38,9 @@ class MainActivity : AppCompatActivity(), Callbacks {
         startFragment(StudentPreferenceFragment.newInstance())
     }
 
-    override fun onMainScreen(isNewStudent: Boolean?, student: Student?, sortingMode: String) {
+    override fun onMainScreen(student: Student?, sortingMode: String) {
         this.setTitle(R.string.app_name)
-        startFragment(StudentListFragment.newInstance(isNewStudent, student, sortingMode))
+        startFragment(StudentListFragment.newInstance(student, sortingMode))
     }
 
     private fun startFragment(fragment: Fragment){

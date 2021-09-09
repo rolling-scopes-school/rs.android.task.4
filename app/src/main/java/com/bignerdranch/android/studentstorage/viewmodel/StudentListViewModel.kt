@@ -6,7 +6,7 @@ import com.bignerdranch.android.studentstorage.model.Student
 
 class StudentListViewModel : ViewModel() {
     private val studentRepository = StudentRepository.get()
-    var studentListLiveData = studentRepository.getStudents("default")
+    var studentListLiveData = studentRepository.getStudents("name")
 
     fun sortStudents(modeOfSort: String) {
         studentListLiveData = studentRepository.getStudents(modeOfSort)

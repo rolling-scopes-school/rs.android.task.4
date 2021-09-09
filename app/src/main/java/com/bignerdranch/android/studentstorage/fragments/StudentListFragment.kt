@@ -35,7 +35,7 @@ class StudentListFragment : Fragment() {
     private var addingButton: FloatingActionButton? = null
     private var swipeRefreshLayout: SwipeRefreshLayout? = null
     private var student: Student? = null
-
+// TODO: fix function: deleting. And, optionally, change fragment presentation
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callbacks = context as? Callbacks
@@ -57,8 +57,10 @@ class StudentListFragment : Fragment() {
         studentRecyclerView.layoutManager = LinearLayoutManager(context)
         studentRecyclerView.adapter = adapter
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null){
+            isMayDelete = savedInstanceState.getBoolean(QUIT_STUDENT)
             isUpdated = savedInstanceState.getBoolean(ROOT_REFRESH)
+        }
 
         return view
     }
@@ -67,10 +69,12 @@ class StudentListFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.fragment_student_list, menu)
         this.menu = menu
+
+        switchTrash()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        refreshStudent()
+        updateStudentList()
         return when (item.itemId) {
             R.id.dbms_changing -> {
                 val builder = AlertDialog.Builder(requireNotNull(context))
@@ -102,11 +106,7 @@ class StudentListFragment : Fragment() {
             }
             R.id.delete_student -> {
                 isMayDelete = !isMayDelete
-                menu.getItem(1).icon = ContextCompat.getDrawable(
-                    requireContext(),
-                    if (isMayDelete) R.drawable.ic_baseline_delete_forever_24
-                    else R.drawable.ic_baseline_delete_24
-                )
+                switchTrash()
                 floatingActionButton.isEnabled = !isMayDelete
                 true
             }
@@ -118,12 +118,20 @@ class StudentListFragment : Fragment() {
         }
     }
 
+    private fun switchTrash(){
+        menu.getItem(1).icon = ContextCompat.getDrawable(
+            requireContext(),
+            if (isMayDelete) R.drawable.ic_baseline_delete_forever_24
+            else R.drawable.ic_baseline_delete_24
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         swipeRefreshLayout = view.findViewById(R.id.swiperFreshLayout)
         swipeRefreshLayout?.setOnRefreshListener {
-            refreshStudent()
+            refreshStudentList()
             swipeRefreshLayout?.isRefreshing = false
         }
 
@@ -131,24 +139,20 @@ class StudentListFragment : Fragment() {
             viewLifecycleOwner,
             { students ->
                 students?.let {
-                    updateUI(students)
+                    adapter.students = students
+                    studentRecyclerView.adapter = adapter
                 }
             }
         )
 
         addingButton = view.findViewById(R.id.floatingActionButton)
         addingButton?.setOnClickListener {
-            refreshStudent()
+            updateStudentList()
             callbacks?.onCreateNewStudent()
         }
     }
 
-    private fun updateUI(students: List<Student>) {
-        adapter.students = students
-        studentRecyclerView.adapter = adapter
-    }
-
-    private fun refreshStudent(){
+    private fun updateStudentList(){
         student = arguments?.getParcelable(NEW_STUDENT) as Student?
         if (student != null && !isUpdated) {
             studentListViewModel.addStudent(requireNotNull(student))
@@ -157,14 +161,19 @@ class StudentListFragment : Fragment() {
         }
     }
 
+    private fun refreshStudentList(){
+        callbacks?.onMainScreen(null, "name")
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(ROOT_REFRESH, isUpdated)
+        outState.putBoolean(QUIT_STUDENT, isMayDelete)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        refreshStudent()
+        updateStudentList()
     }
 
     override fun onDetach() {
@@ -191,11 +200,12 @@ class StudentListFragment : Fragment() {
         }
 
         override fun onClick(v: View) {
-            if (!isMayDelete) {
-                refreshStudent()
+            if (!isMayDelete)
                 callbacks?.onStudentSelected(student.id)
+            else {
+                studentListViewModel.deleteStudent(student)
+                refreshStudentList()
             }
-            else studentListViewModel.deleteStudent(student)
         }
     }
 
@@ -218,21 +228,15 @@ class StudentListFragment : Fragment() {
 
     companion object {
         private const val ROOT_REFRESH = "juice nice"
+        private const val QUIT_STUDENT = "Expelled student"
 
-        private const val IS_NEW = "is new student"
         private const val NEW_STUDENT = "new student"
         private const val SORTING_MODE = "sorting mode"
 
         @JvmStatic
-        fun newInstance(
-            isNewStudent: Boolean? = null,
-            student: Student? = null,
-            sortingMode: String = "default"):
+        fun newInstance(student: Student? = null, sortingMode: String):
                 StudentListFragment = StudentListFragment().apply {
-            arguments = bundleOf(
-                IS_NEW to isNewStudent,
-                NEW_STUDENT to student,
-                SORTING_MODE to sortingMode)
+            arguments = bundleOf(NEW_STUDENT to student, SORTING_MODE to sortingMode)
         }
     }
 }

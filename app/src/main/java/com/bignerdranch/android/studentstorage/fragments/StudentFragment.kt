@@ -28,7 +28,6 @@ class StudentFragment : Fragment() {
     }
     private var student: Student = Student()
     private var callbacks: Callbacks? = null
-    private var isAddingMode = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,7 +37,7 @@ class StudentFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this){
-            callbacks?.onMainScreen(false, null, "default")
+            callbacks?.onMainScreen(null, "name")
         }
     }
 
@@ -79,15 +78,14 @@ class StudentFragment : Fragment() {
     }
 
     private fun addStudent(){
-        isAddingMode = true
         addingButton.setOnClickListener {
             val name = nameStudent.text.toString()
             val age = ageStudent.text.toString().toIntOrNull()
             val rating = ratingStudent.text.toString().toFloatOrNull()
             if (name.isNotEmpty() && age != null && rating != null){
                 Toast.makeText(context, R.string.adding_notification, Toast.LENGTH_SHORT).show()
-                callbacks?.onMainScreen(isAddingMode,
-                    Student(name = name, age = age, rating = rating), "default")
+                callbacks?.onMainScreen(
+                    Student(name = name, age = age, rating = rating), "name")
             }
         }
     }
@@ -120,8 +118,7 @@ class StudentFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        if (!isAddingMode)
-            studentDetailViewModel.saveStudent(student)
+        studentDetailViewModel.saveStudent(student)
     }
 
     companion object {

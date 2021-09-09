@@ -23,7 +23,7 @@ class StudentPreferenceFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this){
-            returnToMainScreen("default")
+            returnToMainScreen("name")
         }
     }
 
@@ -47,7 +47,7 @@ class StudentPreferenceFragment : Fragment() {
     }
 
     private fun returnToMainScreen(sortingMode: String){
-        callbacks?.onMainScreen(null, null, sortingMode)
+        callbacks?.onMainScreen(null, sortingMode)
     }
 
     companion object {

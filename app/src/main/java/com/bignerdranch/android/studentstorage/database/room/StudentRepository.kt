@@ -15,10 +15,7 @@ class StudentRepository private constructor(private val context: Context) {
     ).build()
 
     private val studentDao: StudentDao
-        get() {
-            return if (2 > 3) StudentDatabaseCursor(context) else database.studentDao()
-//            return database.studentDao()
-        }
+        get() = if (true) StudentDatabaseCursor(context) else database.studentDao()
 
     private val executor = Executors.newSingleThreadExecutor()
 
