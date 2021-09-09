@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Студэнты</string>
+    <string name="adding_label">Дадайце новага вучня</string>
+    <string name="editing_label">Рэдагаваць студэнта</string>
+    <string name="sorting_label">Сартаваць па</string>
+
+    <string name="student_name_hint">Увядзіце імя</string>
+    <string name="student_age_hint">Увядзіце ўзрост</string>
+    <string name="student_rating_hint">Увядзіце рэйтынг</string>
+
+    <string name="_name">Імя:</string>
+    <string name="_age">Узрост:</string>
+    <string name="_rating">Рэйтынг:</string>
+
+    <string name="name">імя</string>
+    <string name="age">ўзрост</string>
+    <string name="rating">рэйтынг</string>
+
+    <string name="add">Дадаць</string>
+    <string name="adding_notification">Студэнт дададзены ў базу дадзеных!</string>
+    <string name="updated"> Спіс абноўлены! </string>
+
+    <string name="titleAlertDialog">змена СКБД</string>
+    <string name="messageAlertDialog">Вы хочаце змяніць СКБД?</string>
+    <string name="positiveButton">так</string>
+    <string name="negativeButton">не</string>
+    <string name="canceledMessage">адмяніць</string>
+</resources>

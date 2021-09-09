@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Studenci</string>
+    <string name="adding_label">Dodaj nowego ucznia</string>
+    <string name="editing_label">Edytuj ucznia</string>
+    <string name="sorting_label">Sortuj według</string>
+
+    <string name="student_name_hint">Wprowadź imię</string>
+    <string name="student_age_hint">Wpisz wiek</string>
+    <string name="student_rating_hint">Wpisz ocenę</string>
+
+    <string name="_name">Imię:</string>
+    <string name="_age">Wiek:</string>
+    <string name="_rating">Ocena:</string>
+
+    <string name="name">imię</string>
+    <string name="age">wiek</string>
+    <string name="rating">ocena</string>
+
+    <string name="add">Dodaj</string>
+    <string name="adding_notification">Uczeń dodany do bazy danych!</string>
+    <string name="updated">Lista zaktualizowana!</string>
+
+    <string name="titleAlertDialog">Zmiana DBMS</string>
+    <string name="messageAlertDialog">Czy chcesz zmienić swój DBMS?</string>
+    <string name="positiveButton">tak</string>
+    <string name="negativeButton">Nie</string>
+    <string name="canceledMessage">Anulować</string>
+</resources>

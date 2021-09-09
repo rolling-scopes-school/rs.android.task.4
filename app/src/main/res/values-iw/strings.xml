@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">סטודנטים</string>
+    <string name="adding_label">הוסף תלמיד חדש</string>
+    <string name="editing_label">ערוך תלמיד</string>
+    <string name="sorting_label">מיין לפי</string>
+
+    <string name="student_name_hint">הכנס שם</string>
+    <string name="student_age_hint">הזן גיל</string>
+    <string name="student_rating_hint">הזן דירוג</string>
+
+    <string name="_name">שֵׁם:</string>
+    <string name="_age">גיל:</string>
+    <string name="_rating">דֵרוּג:</string>
+
+    <string name="name">שֵׁם</string>
+    <string name="age">גיל</string>
+    <string name="rating">דֵרוּג</string>
+
+    <string name="add">לְהוֹסִיף</string>
+    <string name="adding_notification">סטודנט נוסף במסד הנתונים!</string>
+    <string name="updated"> הרשימה עודכנה! </string>
+
+    <string name="titleAlertDialog">שינוי ה- DBMS</string>
+    <string name="messageAlertDialog">האם אתה רוצה לשנות את ה- DBMS שלך?</string>
+    <string name="positiveButton">כן</string>
+    <string name="negativeButton">לא</string>
+    <string name="canceledMessage">לְבַטֵל</string>
+</resources>
