@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/marginCardItems">
+
+    <LinearLayout
+        android:id="@+id/animal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/paddingItems"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/RecyclerViewItem"
+            tools:text="@string/item_rv_name" />
+
+        <TextView
+            android:id="@+id/age"
+            style="@style/RecyclerViewItem"
+            tools:text="@string/item_rv_age" />
+
+        <TextView
+            android:id="@+id/breed"
+            style="@style/RecyclerViewItem"
+            android:layout_marginBottom="@dimen/marginCardItems"
+            tools:text="@string/item_rv_breed" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

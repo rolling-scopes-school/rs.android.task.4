@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sort by Preference -->
+    <string-array name="column_entries">
+        <item>@string/key_column_name_name</item>
+        <item>@string/key_column_name_age</item>
+        <item>@string/key_column_name_breed</item>
+    </string-array>
+
+    <string-array name="column_values">
+        <item>@string/key_column_name_name</item>
+        <item>@string/key_column_name_age</item>
+        <item>@string/key_column_name_breed</item>
+    </string-array>
+</resources>

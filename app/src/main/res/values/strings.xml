@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Animals</string>
+    <string name="db_name">animals.db</string>
+    <string name="item_rv_name">Name: </string>
+    <string name="item_rv_age">Age: </string>
+    <string name="item_rv_breed">Breed: </string>
+    <string name="button_name_add">Add</string>
+    <string name="button_name_update">Update</string>
+    <string name="button_name_delete">Delete</string>
+    <string name="button_name_sort_name">Name</string>
+    <string name="button_name_sort_age">Age</string>
+    <string name="button_name_sort_breed">Breed</string>
+    <string name="key_column_name_name">name</string>
+    <string name="key_column_name_age">age</string>
+    <string name="key_column_name_breed">breed</string>
+    <string name="key_column">column</string>
+    <string name="bar_title_icon_filter">Sort by</string>
+    <string name="bar_title_fragment_sort">Sort by</string>
+    <string name="bar_title_fragment_add">Add New Animal</string>
+    <string name="bar_title_fragment_edit">Edit Animal</string>
+    <string name="bar_title_fragment_main">Animals</string>
+    <string name="info_fragment_add">You must fill in all fields!</string>
+    <string name="info_fragment_delete">Are you sure you want to remove the animal?</string>
+    <string name="alert_dialog_button_ok">OK</string>
+    <string name="alert_dialog_button_yes">YES</string>
+    <string name="alert_dialog_button_no">NO</string>
+    <string name="preference_title_sort_by">Sorting by</string>
+    <string name="preference_dialog_sort_by">Select a column to sort</string>
+    <string name="preference_summary_sort_by">Sets the column to sort</string>
+    <string name="view_id">id</string>
+    <string name="bar_title_icon_database">Change DB source</string>
+    <string name="key_source_db">source_db</string>
+    <string name="key_source_room_db">room</string>
+    <string name="key_source_cursor_db">cursor</string>
+
+</resources>

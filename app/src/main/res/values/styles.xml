@@ -1,0 +1,41 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="RecyclerViewItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/marginItems</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/textSizeLabels</item>
+        <item name="android:textColor">@color/colorTextItems</item>
+    </style>
+
+    <style name="AddFragmentItems" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">@dimen/inputItemWidth</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/marginItemsAddFragment</item>
+        <item name="android:textSize">@dimen/textSizeButton</item>
+    </style>
+
+    <style name="AddFragmentItemsSortedBy" parent="AddFragmentItems">
+        <item name="android:textSize">@dimen/textSize30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

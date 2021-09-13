@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/animalsFragment">
+
+    <fragment
+        android:id="@+id/animalsFragment"
+        android:name="rs.android.task4.fragments.AnimalsFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/animals_fragment">
+        <action
+            android:id="@+id/action_animalsFragment_to_sortFragment"
+            app:destination="@id/sortFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
+        <action
+            android:id="@+id/action_animalsFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="rs.android.task4.fragments.AddFragment"
+        android:label="add_fragment"
+        tools:layout="@layout/add_fragment" >
+        <action
+            android:id="@+id/action_addFragment_to_animalsFragment"
+            app:destination="@id/animalsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="rs.android.task4.fragments.SortFragment"
+        android:label="sort_fragment"
+        tools:layout="@layout/sort_fragment" >
+        <action
+            android:id="@+id/action_sortFragment_to_animalsFragment"
+            app:destination="@id/animalsFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginItems">5dp</dimen>
+    <dimen name="marginCardItems">8dp</dimen>
+    <dimen name="marginItemsAddFragment">30dp</dimen>
+    <dimen name="textSizeLabels">18sp</dimen>
+    <dimen name="textSizeButton">24sp</dimen>
+    <dimen name="floatingButtonMargin">16dp</dimen>
+    <dimen name="floatingButtonIconSize">46dp</dimen>
+    <dimen name="inputItemWidth">240dp</dimen>
+    <dimen name="dividerHeight">1px</dimen>
+    <dimen name="dividerMarginTop">5dp</dimen>
+    <dimen name="textSize30sp">30sp</dimen>
+    <dimen name="paddingItems">5dp</dimen>
+    <dimen name="marginStartButtonDelete">56dp</dimen>
+</resources>
