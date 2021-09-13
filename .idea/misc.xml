@@ -26,12 +26,13 @@
         <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/layout/fragment_crime_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/layout/fragment_student.xml" value="0.25416666666666665" />
         <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/layout/fragment_student_list.xml" value="0.264" />
-        <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/layout/fragment_student_preference.xml" value="0.264" />
+        <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/layout/fragment_student_preference.xml" value="0.1" />
         <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/layout/list_item_crime.xml" value="0.4" />
         <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/layout/list_item_student.xml" value="0.25416666666666665" />
         <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/menu/fragment_crime_list.xml" value="0.264" />
         <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/menu/fragment_student_list.xml" value="0.264" />
         <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Android_Development/RSschool/rs.android.task.4/app/src/main/res/xml/settings.xml" value="0.4" />
       </map>
     </option>
   </component>

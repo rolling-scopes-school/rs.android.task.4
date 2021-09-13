@@ -2,17 +2,12 @@ package com.bignerdranch.android.studentstorage.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import androidx.fragment.app.Fragment
 import androidx.activity.addCallback
+import androidx.preference.PreferenceFragmentCompat
 import com.bignerdranch.android.studentstorage.Callbacks
 import com.bignerdranch.android.studentstorage.R
 
-class StudentPreferenceFragment : Fragment() {
-    private var buttons: Array<Button?> = Array(3){ null }
+class StudentPreferenceFragment : PreferenceFragmentCompat() {
     private var callbacks: Callbacks? = null
 
     override fun onAttach(context: Context) {
@@ -23,31 +18,17 @@ class StudentPreferenceFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this){
-            returnToMainScreen("name")
+            callbacks?.onMainScreen(null, "name")
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_student_preference, container, false)
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.settings, rootKey)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val idButtonArray = arrayOf(R.id.nameButton, R.id.ageButton, R.id.ratingButton)
-        for (i in idButtonArray.indices){
-            buttons[i] = view.findViewById(idButtonArray[i])
-            buttons[i]?.setOnClickListener {
-                returnToMainScreen(buttons[i]?.text.toString())
-            }
-        }
-    }
-
-    private fun returnToMainScreen(sortingMode: String){
-        callbacks?.onMainScreen(null, sortingMode)
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
     }
 
     companion object {

@@ -2,6 +2,7 @@ package com.bignerdranch.android.studentstorage.database.room
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.bignerdranch.android.studentstorage.database.cursor.StudentDatabaseCursor
 import com.bignerdranch.android.studentstorage.model.Student
@@ -15,7 +16,12 @@ class StudentRepository private constructor(private val context: Context) {
     ).build()
 
     private val studentDao: StudentDao
-        get() = if (true) StudentDatabaseCursor(context) else database.studentDao()
+        get() {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return if (sharedPreferences.getBoolean("switchDatabaseRealization", true))
+                database.studentDao()
+            else StudentDatabaseCursor(context)
+        }
 
     private val executor = Executors.newSingleThreadExecutor()
 

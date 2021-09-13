@@ -121,6 +121,11 @@ class StudentFragment : Fragment() {
         studentDetailViewModel.saveStudent(student)
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
+    }
+
     companion object {
         private const val ARG_STUDENT_ID = "student_id"
 

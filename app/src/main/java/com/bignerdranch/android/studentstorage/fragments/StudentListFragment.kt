@@ -1,13 +1,10 @@
 package com.bignerdranch.android.studentstorage.fragments
 
 import android.content.Context
-import android.content.DialogInterface
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -77,31 +74,7 @@ class StudentListFragment : Fragment() {
         updateStudentList()
         return when (item.itemId) {
             R.id.dbms_changing -> {
-                val builder = AlertDialog.Builder(requireNotNull(context))
-                builder.setIcon(android.R.drawable.ic_dialog_alert)
-                builder.setTitle(R.string.titleAlertDialog)
-                builder.setMessage(R.string.messageAlertDialog)
-
-                builder.setPositiveButton(R.string.positiveButton) {
-                        _, _ ->
-                    // Add necessary method for changing DBMS
-                }
-
-                builder.setNegativeButton(R.string.negativeButton) {
-                        _, _ ->
-                    Toast.makeText(
-                        context, R.string.canceledMessage,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                val alertDialog = builder.create()
-                alertDialog.show()
-
-                val positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-                positiveButton.setTextColor(Color.RED)
-                val negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-                negativeButton.setTextColor(Color.GRAY)
+                callbacks?.onSettingsScreen()
                 true
             }
             R.id.delete_student -> {

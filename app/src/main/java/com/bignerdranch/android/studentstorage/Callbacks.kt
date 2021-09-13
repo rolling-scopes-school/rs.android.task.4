@@ -7,4 +7,5 @@ interface Callbacks {
     fun onStudentSelected(studentID: Int)
     fun onSortSelected()
     fun onMainScreen(student: Student?, sortingMode: String)
+    fun onSettingsScreen()
 }

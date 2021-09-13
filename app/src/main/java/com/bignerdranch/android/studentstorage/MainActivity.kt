@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.bignerdranch.android.studentstorage.fragments.StudentFragment
 import com.bignerdranch.android.studentstorage.fragments.StudentListFragment
+import com.bignerdranch.android.studentstorage.fragments.StudentSortingFragment
 import com.bignerdranch.android.studentstorage.fragments.StudentPreferenceFragment
 import com.bignerdranch.android.studentstorage.model.Student
 
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity(), Callbacks {
         }
     }
 
+    override fun onMainScreen(student: Student?, sortingMode: String) {
+        this.setTitle(R.string.app_name)
+        startFragment(StudentListFragment.newInstance(student, sortingMode))
+    }
+
     override fun onCreateNewStudent() {
         this.setTitle(R.string.adding_label)
         startFragment(StudentFragment.newInstance())
@@ -35,12 +41,12 @@ class MainActivity : AppCompatActivity(), Callbacks {
 
     override fun onSortSelected() {
         this.setTitle(R.string.sorting_label)
-        startFragment(StudentPreferenceFragment.newInstance())
+        startFragment(StudentSortingFragment.newInstance())
     }
 
-    override fun onMainScreen(student: Student?, sortingMode: String) {
-        this.setTitle(R.string.app_name)
-        startFragment(StudentListFragment.newInstance(student, sortingMode))
+    override fun onSettingsScreen() {
+        this.setTitle(R.string.setting_label)
+        startFragment(StudentPreferenceFragment.newInstance())
     }
 
     private fun startFragment(fragment: Fragment){
