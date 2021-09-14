@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.workingwithstorage.data.PreferenceManager
+import com.example.workingwithstorage.data.SQLite.FilmSQLiteHelper
+import com.example.workingwithstorage.data.SQLite.SQLiteDao
 import com.example.workingwithstorage.data.room.FilmDatabase
 import com.example.workingwithstorage.model.Film
 import com.example.workingwithstorage.repository.FilmRepository
@@ -20,9 +22,12 @@ class FilmViewModel(application: Application): AndroidViewModel (application) {
 
 
     init {
-        val filmBDLite = FilmDatabase.getDatabase(application, viewModelScope ).filmSQLDao()
         val filmBDRoom = FilmDatabase.getDatabase(application, viewModelScope ).filmDao()
         val preferenceManager = PreferenceManager(application)
+        val filmBDLite = SQLiteDao(
+            sqlLite = FilmSQLiteHelper(application),
+            preferencesManager = preferenceManager,
+        )
         repository = FilmRepository(filmBDLite, filmBDRoom, preferenceManager)
         allFilm = repository.getAll().asLiveData()
     }

@@ -13,7 +13,7 @@ class FilmSQLiteHelper(context: Context) : SQLiteOpenHelper(
     DATABASE_VERSION){
 
     override fun onCreate(db: SQLiteDatabase) {
-     db.execSQL(CREATE_TABLE_SQL)
+        db.execSQL(CREATE_TABLE_SQL)
         db.execSQL("INSERT INTO $TABLE_NAME ($COLUMN_TITLE) VALUES ('Fight Club') " +
                 "($COLUMN_COUNTRY) VALUES ('USA')($COLUMN_YEAR) VALUES (1999);")
         db.execSQL("INSERT INTO $TABLE_NAME ($COLUMN_TITLE) VALUES ('The Dark Knight') " +
