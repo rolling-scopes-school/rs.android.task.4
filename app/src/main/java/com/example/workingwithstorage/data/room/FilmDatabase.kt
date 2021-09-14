@@ -1,10 +1,11 @@
-package com.example.workingwithstorage.data
+package com.example.workingwithstorage.data.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.workingwithstorage.data.SQLite.SQLiteDao
 import com.example.workingwithstorage.model.Film
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 abstract class FilmDatabase: RoomDatabase() {
 
     abstract fun filmDao(): FilmDao
+    abstract fun filmSQLDao(): SQLiteDao
 
     companion object{
         @Volatile

@@ -5,7 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.workingwithstorage.data.FilmDatabase
+import com.example.workingwithstorage.data.PreferenceManager
+import com.example.workingwithstorage.data.room.FilmDatabase
 import com.example.workingwithstorage.model.Film
 import com.example.workingwithstorage.repository.FilmRepository
 import kotlinx.coroutines.Dispatchers
@@ -19,8 +20,10 @@ class FilmViewModel(application: Application): AndroidViewModel (application) {
 
 
     init {
-        val filmDao = FilmDatabase.getDatabase(application, viewModelScope ).filmDao()
-        repository = FilmRepository(filmDao)
+        val filmBDLite = FilmDatabase.getDatabase(application, viewModelScope ).filmSQLDao()
+        val filmBDRoom = FilmDatabase.getDatabase(application, viewModelScope ).filmDao()
+        val preferenceManager = PreferenceManager(application)
+        repository = FilmRepository(filmBDLite, filmBDRoom, preferenceManager)
         allFilm = repository.getAll().asLiveData()
     }
 
@@ -59,5 +62,10 @@ class FilmViewModel(application: Application): AndroidViewModel (application) {
         viewModelScope.launch (Dispatchers.IO){
             repository.deleteFilm(film)
         }
+    }
+
+    override fun onCleared() {
+        repository.job.cancel()
+        super.onCleared()
     }
 }

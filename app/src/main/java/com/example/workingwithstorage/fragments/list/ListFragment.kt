@@ -57,7 +57,12 @@ class ListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        findNavController().navigate(R.id.action_listFragment_to_filterFragment)
+        when (item.itemId){
+            R.id.menu_filter ->
+                findNavController().navigate(R.id.action_listFragment_to_filterFragment)
+     //       R.id.menu_sql -> mFilmViewModel
+        }
+
         return super.onOptionsItemSelected(item)
     }
 
