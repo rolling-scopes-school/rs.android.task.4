@@ -10,12 +10,6 @@
         tools:ignore="MenuTitle" />
 
     <item
-        android:id="@+id/delete_student"
-        android:icon="@drawable/ic_baseline_delete_24"
-        app:showAsAction="ifRoom|withText"
-        tools:ignore="MenuTitle" />
-
-    <item
         android:id="@+id/sorting_student"
         android:icon="@drawable/ic_baseline_filter_alt_24"
         app:showAsAction="ifRoom|withText"

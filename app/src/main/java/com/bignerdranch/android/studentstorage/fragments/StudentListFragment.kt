@@ -1,26 +1,19 @@
 package com.bignerdranch.android.studentstorage.fragments
 
 import android.content.Context
-import android.content.DialogInterface
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bignerdranch.android.studentstorage.Callbacks
 import com.bignerdranch.android.studentstorage.R
 import com.bignerdranch.android.studentstorage.model.Student
 import com.bignerdranch.android.studentstorage.viewmodel.StudentListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_student_list.*
 
 class StudentListFragment : Fragment() {
     private lateinit var studentRecyclerView: RecyclerView
@@ -30,11 +23,7 @@ class StudentListFragment : Fragment() {
     }
     private var callbacks: Callbacks? = null
     private lateinit var menu: Menu
-    private var isMayDelete: Boolean = false
-    private var isUpdated: Boolean = false
     private var addingButton: FloatingActionButton? = null
-    private var swipeRefreshLayout: SwipeRefreshLayout? = null
-    private var student: Student? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,10 +45,6 @@ class StudentListFragment : Fragment() {
         studentRecyclerView = view.findViewById(R.id.student_recycler_view) as RecyclerView
         studentRecyclerView.layoutManager = LinearLayoutManager(context)
         studentRecyclerView.adapter = adapter
-
-        if (savedInstanceState != null)
-            isUpdated = savedInstanceState.getBoolean(ROOT_REFRESH)
-
         return view
     }
 
@@ -70,44 +55,9 @@ class StudentListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        refreshStudent()
         return when (item.itemId) {
             R.id.dbms_changing -> {
-                val builder = AlertDialog.Builder(requireNotNull(context))
-                builder.setIcon(android.R.drawable.ic_dialog_alert)
-                builder.setTitle(R.string.titleAlertDialog)
-                builder.setMessage(R.string.messageAlertDialog)
-
-                builder.setPositiveButton(R.string.positiveButton) {
-                        _, _ ->
-                    // Add necessary method for changing DBMS
-                }
-
-                builder.setNegativeButton(R.string.negativeButton) {
-                        _, _ ->
-                    Toast.makeText(
-                        context, R.string.canceledMessage,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                val alertDialog = builder.create()
-                alertDialog.show()
-
-                val positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-                positiveButton.setTextColor(Color.RED)
-                val negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-                negativeButton.setTextColor(Color.GRAY)
-                true
-            }
-            R.id.delete_student -> {
-                isMayDelete = !isMayDelete
-                menu.getItem(1).icon = ContextCompat.getDrawable(
-                    requireContext(),
-                    if (isMayDelete) R.drawable.ic_baseline_delete_forever_24
-                    else R.drawable.ic_baseline_delete_24
-                )
-                floatingActionButton.isEnabled = !isMayDelete
+                callbacks?.onSettingsScreen()
                 true
             }
             R.id.sorting_student -> {
@@ -121,50 +71,20 @@ class StudentListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        swipeRefreshLayout = view.findViewById(R.id.swiperFreshLayout)
-        swipeRefreshLayout?.setOnRefreshListener {
-            refreshStudent()
-            swipeRefreshLayout?.isRefreshing = false
-        }
-
         studentListViewModel.studentListLiveData.observe(
             viewLifecycleOwner,
             { students ->
                 students?.let {
-                    updateUI(students)
+                    adapter.students = students
+                    studentRecyclerView.adapter = adapter
                 }
             }
         )
 
         addingButton = view.findViewById(R.id.floatingActionButton)
         addingButton?.setOnClickListener {
-            refreshStudent()
             callbacks?.onCreateNewStudent()
         }
-    }
-
-    private fun updateUI(students: List<Student>) {
-        adapter.students = students
-        studentRecyclerView.adapter = adapter
-    }
-
-    private fun refreshStudent(){
-        student = arguments?.getParcelable(NEW_STUDENT) as Student?
-        if (student != null && !isUpdated) {
-            studentListViewModel.addStudent(requireNotNull(student))
-            Toast.makeText(context, R.string.updated, Toast.LENGTH_SHORT).show()
-            isUpdated = true
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(ROOT_REFRESH, isUpdated)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        refreshStudent()
     }
 
     override fun onDetach() {
@@ -191,11 +111,7 @@ class StudentListFragment : Fragment() {
         }
 
         override fun onClick(v: View) {
-            if (!isMayDelete) {
-                refreshStudent()
-                callbacks?.onStudentSelected(student.id)
-            }
-            else studentListViewModel.deleteStudent(student)
+            callbacks?.onStudentSelected(student.id)
         }
     }
 
@@ -217,22 +133,12 @@ class StudentListFragment : Fragment() {
     }
 
     companion object {
-        private const val ROOT_REFRESH = "juice nice"
-
-        private const val IS_NEW = "is new student"
-        private const val NEW_STUDENT = "new student"
         private const val SORTING_MODE = "sorting mode"
 
         @JvmStatic
-        fun newInstance(
-            isNewStudent: Boolean? = null,
-            student: Student? = null,
-            sortingMode: String = "default"):
+        fun newInstance(sortingMode: String):
                 StudentListFragment = StudentListFragment().apply {
-            arguments = bundleOf(
-                IS_NEW to isNewStudent,
-                NEW_STUDENT to student,
-                SORTING_MODE to sortingMode)
+            arguments = bundleOf(SORTING_MODE to sortingMode)
         }
     }
 }

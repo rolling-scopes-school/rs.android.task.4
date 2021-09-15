@@ -15,12 +15,20 @@ class StudentDetailViewModel : ViewModel() {
         Transformations.switchMap(studentIdLiveData) { studentID ->
             studentRepository.getStudent(studentID)
         }
-    
+
     fun loadStudent(studentID: Int) {
         studentIdLiveData.value = studentID
     }
 
+    fun addStudent(student: Student) {
+        studentRepository.addStudent(student)
+    }
+
     fun saveStudent(student: Student) {
         studentRepository.updateStudent(student)
+    }
+
+    fun deleteStudent(student: Student){
+        studentRepository.deleteStudent(student)
     }
 }

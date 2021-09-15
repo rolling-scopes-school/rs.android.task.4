@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.view.isVisible
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -22,13 +22,12 @@ class StudentFragment : Fragment() {
     private lateinit var nameStudent: EditText
     private lateinit var ageStudent: EditText
     private lateinit var ratingStudent: EditText
-    private lateinit var addingButton: Button
+    private lateinit var functionalButton: Button
     private val studentDetailViewModel: StudentDetailViewModel by lazy {
         ViewModelProviders.of(this).get(StudentDetailViewModel::class.java)
     }
     private var student: Student = Student()
     private var callbacks: Callbacks? = null
-    private var isAddingMode = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,7 +37,7 @@ class StudentFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this){
-            callbacks?.onMainScreen(false, null, "default")
+            snapBackToReality()
         }
     }
 
@@ -52,7 +51,7 @@ class StudentFragment : Fragment() {
         nameStudent = view.findViewById(R.id.name_student) as EditText
         ageStudent = view.findViewById(R.id.age_student) as EditText
         ratingStudent = view.findViewById(R.id.rating_student) as EditText
-        addingButton = view.findViewById(R.id.add_button) as Button
+        functionalButton = view.findViewById(R.id.add_button) as Button
 
         return view
     }
@@ -63,7 +62,10 @@ class StudentFragment : Fragment() {
 
         if (studentId == null) addStudent()
         else {
-            addingButton.isVisible = false
+            functionalButton.text = resources.getString(R.string.delete)
+            functionalButton.background = ResourcesCompat
+                .getDrawable(resources, R.drawable.deleting_button_border, null)
+
             studentDetailViewModel.loadStudent(studentId)
             studentDetailViewModel.studentLiveData.observe(
                 viewLifecycleOwner,
@@ -73,21 +75,20 @@ class StudentFragment : Fragment() {
                         updateUI()
                     }
                 }
-            )
-            editStudent()
+            ); editStudent()
         }
     }
 
     private fun addStudent(){
-        isAddingMode = true
-        addingButton.setOnClickListener {
+        functionalButton.setOnClickListener {
             val name = nameStudent.text.toString()
             val age = ageStudent.text.toString().toIntOrNull()
             val rating = ratingStudent.text.toString().toFloatOrNull()
             if (name.isNotEmpty() && age != null && rating != null){
+                student = Student(name = name, age = age, rating = rating)
+                studentDetailViewModel.addStudent(student)
                 Toast.makeText(context, R.string.adding_notification, Toast.LENGTH_SHORT).show()
-                callbacks?.onMainScreen(isAddingMode,
-                    Student(name = name, age = age, rating = rating), "default")
+                snapBackToReality()
             }
         }
     }
@@ -108,6 +109,12 @@ class StudentFragment : Fragment() {
                 sequence.toString().toFloat()
             } catch (e: NumberFormatException) { 0.0f }
         }
+
+        functionalButton.setOnClickListener {
+            studentDetailViewModel.deleteStudent(student)
+            Toast.makeText(context, R.string.deleting_notification, Toast.LENGTH_SHORT).show()
+            snapBackToReality()
+        }
     }
 
     private fun updateUI() {
@@ -118,10 +125,18 @@ class StudentFragment : Fragment() {
         }
     }
 
+    private fun snapBackToReality(){
+        callbacks?.onMainScreen("name")
+    }
+
     override fun onStop() {
         super.onStop()
-        if (!isAddingMode)
-            studentDetailViewModel.saveStudent(student)
+        studentDetailViewModel.saveStudent(student)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
     }
 
     companion object {
