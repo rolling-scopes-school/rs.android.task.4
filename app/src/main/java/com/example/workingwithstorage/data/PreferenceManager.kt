@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+// Вижу есть сетап под Dagger/Dagger Hilt, но он не используется :(
 @Singleton
 class PreferenceManager @Inject constructor(@ApplicationContext context: Context){
     private val dataStore = context.createDataStore(HUMAN_PREFERENCES)

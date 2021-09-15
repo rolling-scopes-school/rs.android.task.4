@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 abstract class FilmDatabase: RoomDatabase() {
 
     abstract fun filmDao(): FilmDao
-    abstract fun filmSQLDao(): SQLiteDao
 
     companion object{
         @Volatile

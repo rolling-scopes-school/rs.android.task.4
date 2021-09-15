@@ -2,6 +2,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--
+        Судя по экрану настроек, мы можем включить одновременно несколько сортировок
+        (например, сортировку по названию и по году). А в коде предполагается, что
+        мы можем выбрать либо только по названию, либо только по году. Я бы рекоммендовал
+        сделать так:
+            1) можно было выбрать одну опцию сортировки на экране настроек;
+            2) по умолчанию уже выбрана одна опция (например, title).
+    -->
+
     <SwitchPreference
         android:key="prefTitle"
         android:selectAllOnFocus="true"
