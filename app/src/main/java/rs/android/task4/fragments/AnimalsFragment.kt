@@ -7,13 +7,15 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import rs.android.task4.DEFAULT_PREF_DATABASE_NAME
-import rs.android.task4.MainActivity
-import rs.android.task4.R
+import kotlinx.coroutines.launch
+import rs.android.task4.*
 import rs.android.task4.adapter.AnimalAdapter
 import rs.android.task4.adapter.OnAnimalItemClickListener
 import rs.android.task4.databinding.AnimalsFragmentBinding
@@ -66,7 +68,7 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
         )
 
         if (sourceDB != null) {
-            viewModel.changeDatabaseSource(sourceDB)
+            viewModel.setDbSource(sourceDB)
         }
 
         val sortingColumn = (prefs?.getString(
@@ -77,7 +79,6 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
 
         viewModel.setSortBy(sortingColumn)
 
-
         views {
             recyclerView.adapter = animalAdapter
             floatingButton.setOnClickListener { _ ->
@@ -85,8 +86,15 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
             }
         }
 
-        viewModel.animalsFlow.debounce(200).onEach(::renderAnimals).launchIn(lifecycleScope)
+        viewModel.animalsFlow.onEach(::renderAnimals).launchIn(lifecycleScope)
 
+        viewModel.sourceDbFlow.onEach(::changeDbSource).launchIn(lifecycleScope)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        renderAnimals(viewModel.animalsFlow.replayCache.flatten())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -94,7 +102,7 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
         super.onCreateOptionsMenu(menu, inflater)
         menuItemDatabase = menu.getItem(0)
 
-        var sourceDB = prefs?.getString(
+        val sourceDB = prefs?.getString(
             resources.getString(R.string.key_source_db),
             DEFAULT_PREF_DATABASE_NAME
         )
@@ -127,7 +135,7 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
                     resources.getString(R.string.key_source_db),
                     sourceDB
                 )?.apply()
-                viewModel.changeDatabaseSource(sourceDB)
+                viewModel.setDbSource(sourceDB)
                 return true
             }
         }
@@ -150,6 +158,10 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
 
     private fun renderAnimals(animals: List<Animal>) {
         adapter?.submitList(animals)
+    }
+
+    private fun changeDbSource(dbSource: String) {
+        viewModel.changeDatabaseSource(dbSource)
     }
 
     private fun <T> views(block: AnimalsFragmentBinding.() -> T): T? = binding?.block()

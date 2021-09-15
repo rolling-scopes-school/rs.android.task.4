@@ -29,15 +29,19 @@ class AnimalSQLiteDatabase(context: Context) : SQLiteOpenHelper
     }
 
     private fun getCursorSortByName(): Cursor {
-        return readableDatabase.rawQuery("SELECT * FROM animals_cursor ORDER BY $COLUMN_NAME", null)
+        //return readableDatabase.rawQuery("SELECT * FROM animals_cursor ORDER BY $COLUMN_NAME", null)
+        return readableDatabase.query(TABLE_NAME, null, null, null, null, null, COLUMN_NAME)
     }
 
     private fun getCursorSortByAge(): Cursor {
-        return readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_AGE", null)
+//        return readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_AGE", null)
+        return readableDatabase.query(TABLE_NAME, null, null, null, null, null, COLUMN_AGE)
     }
 
     private fun getCursorSortByBreed(): Cursor {
-        return readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_BREED", null)
+//        return readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_BREED", null)
+        return readableDatabase.query(TABLE_NAME, null, null, null, null, null, COLUMN_BREED)
+
     }
 
     fun getAllSortBy(columnName: String): List<Animal> {

@@ -15,6 +15,9 @@ class AnimalsViewModel(application: Application) : AndroidViewModel(application)
     private var _animalsFlow = MutableStateFlow<List<Animal>>(emptyList())
     val animalsFlow: SharedFlow<List<Animal>> = _animalsFlow.asStateFlow()
 
+    private var _sourceDbFlow = MutableStateFlow(sortingColumn)
+    val sourceDbFlow: SharedFlow<String> = _sourceDbFlow.asStateFlow()
+
     init {
         emitAllSortBy(sortingColumn)
     }
@@ -29,8 +32,12 @@ class AnimalsViewModel(application: Application) : AndroidViewModel(application)
         emitAllSortBy(sortingColumn)
     }
 
-    private fun emitAllSortBy(sortingColumn: String) {
+    fun emitAllSortBy(sortingColumn: String) {
         repository.getAllSortBy(sortingColumn).onEach { _animalsFlow.emit(it) }
             .launchIn(viewModelScope)
+    }
+
+    fun setDbSource(dbSource: String) {
+        _sourceDbFlow.value = dbSource
     }
 }

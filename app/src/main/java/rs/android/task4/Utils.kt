@@ -10,7 +10,7 @@ const val DATABASE_SOURCE_NAME_CURSOR = "cursor"
 const val COLUMN_NAME = "name"
 const val COLUMN_AGE = "age"
 const val COLUMN_BREED = "breed"
-const val DEFAULT_PREF_DATABASE_NAME = "cursor"
+const val DEFAULT_PREF_DATABASE_NAME = "room"
 
 
 object ListAnimals {
