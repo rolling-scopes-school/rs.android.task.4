@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
         android:key="switchDatabaseRealization"
-        android:title="Switch Cursor/Room"
+        android:title="@string/DBSMPreference"
         android:defaultValue="false"/>
 
     <SwitchPreference
         android:key="switchBackgroundMusicPlay"
-        android:title="Always play background music"
+        android:title="@string/backgroundMusicPreference"
         android:defaultValue="false"/>
 </PreferenceScreen>

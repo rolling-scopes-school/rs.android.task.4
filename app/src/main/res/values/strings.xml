@@ -3,7 +3,7 @@
     <string name="adding_label">Add new student</string>
     <string name="editing_label">Edit student</string>
     <string name="sorting_label">Sort by</string>
-    <string name="setting_label" translatable="false">Settings</string>
+    <string name="setting_label">Settings</string>
 
     <string name="student_name_hint">Enter name</string>
     <string name="student_age_hint">Enter age</string>
@@ -19,12 +19,10 @@
 
     <string name="add">Add</string>
     <string name="delete">Delete</string>
+
     <string name="adding_notification">Student added in database!</string>
     <string name="deleting_notification">Student deleted in database!</string>
 
-    <string name="titleAlertDialog">Changing the DBMS</string>
-    <string name="messageAlertDialog">Do you want to change your DBMS?</string>
-    <string name="positiveButton">Yes</string>
-    <string name="negativeButton">No</string>
-    <string name="canceledMessage">Canceled</string>
+    <string name="DBSMPreference">Switch Cursor/Room</string>
+    <string name="backgroundMusicPreference">Always play background music</string>
 </resources>

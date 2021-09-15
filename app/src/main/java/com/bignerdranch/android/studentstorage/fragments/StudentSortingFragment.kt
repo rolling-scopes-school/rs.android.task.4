@@ -41,10 +41,18 @@ class StudentSortingFragment : Fragment() {
         for (i in idButtonArray.indices){
             buttons[i] = view.findViewById(idButtonArray[i])
             buttons[i]?.setOnClickListener {
-                callbacks?.onMainScreen(buttons[i]?.text.toString())
+                callbacks?.onMainScreen(switchSortParameter(i))
             }
         }
     }
+
+    private fun switchSortParameter(number: Int): String =
+        when(number) {
+            0 -> "name"
+            1 -> "age"
+            2 -> "rating"
+            else -> ""
+        }
 
     override fun onDetach() {
         super.onDetach()

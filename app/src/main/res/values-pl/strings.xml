@@ -3,6 +3,7 @@
     <string name="adding_label">Dodaj nowego ucznia</string>
     <string name="editing_label">Edytuj ucznia</string>
     <string name="sorting_label">Sortuj według</string>
+    <string name="setting_label">Ustawienia</string>
 
     <string name="student_name_hint">Wprowadź imię</string>
     <string name="student_age_hint">Wpisz wiek</string>
@@ -22,9 +23,6 @@
     <string name="adding_notification">Uczeń dodany do bazy danych!</string>
     <string name="deleting_notification">Uczeń usunięty z bazy danych!</string>
 
-    <string name="titleAlertDialog">Zmiana DBMS</string>
-    <string name="messageAlertDialog">Czy chcesz zmienić swój DBMS?</string>
-    <string name="positiveButton">tak</string>
-    <string name="negativeButton">Nie</string>
-    <string name="canceledMessage">Anulować</string>
+    <string name="DBSMPreference">Przełącz Cursor/Room</string>
+    <string name="backgroundMusicPreference">Zawsze odtwarzaj muzykę w tle</string>
 </resources>
