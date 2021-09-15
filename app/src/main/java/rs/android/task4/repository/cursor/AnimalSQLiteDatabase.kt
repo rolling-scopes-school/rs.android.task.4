@@ -28,30 +28,13 @@ class AnimalSQLiteDatabase(context: Context) : SQLiteOpenHelper
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
     }
 
-    private fun getCursorSortByName(): Cursor {
-        //return readableDatabase.rawQuery("SELECT * FROM animals_cursor ORDER BY $COLUMN_NAME", null)
-        return readableDatabase.query(TABLE_NAME, null, null, null, null, null, COLUMN_NAME)
-    }
-
-    private fun getCursorSortByAge(): Cursor {
-//        return readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_AGE", null)
-        return readableDatabase.query(TABLE_NAME, null, null, null, null, null, COLUMN_AGE)
-    }
-
-    private fun getCursorSortByBreed(): Cursor {
-//        return readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_BREED", null)
-        return readableDatabase.query(TABLE_NAME, null, null, null, null, null, COLUMN_BREED)
-
+    private fun getCursorSortBy(columnName: String): Cursor {
+        return readableDatabase.query(TABLE_NAME, null, null, null, null, null, columnName)
     }
 
     fun getAllSortBy(columnName: String): List<Animal> {
         val animals = mutableListOf<Animal>()
-        when (columnName) {
-            COLUMN_NAME -> getCursorSortByName()
-            COLUMN_AGE -> getCursorSortByAge()
-            COLUMN_BREED -> getCursorSortByBreed()
-            else -> getCursorSortByName()
-        }.use { cursor ->
+        getCursorSortBy(columnName).use { cursor ->
             if (cursor.moveToFirst()) {
                 do {
                     val animalId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))

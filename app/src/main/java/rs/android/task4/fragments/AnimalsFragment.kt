@@ -3,6 +3,7 @@ package rs.android.task4.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
@@ -62,6 +64,10 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
         val animalAdapter = AnimalAdapter(this)
         prefs = PreferenceManager.getDefaultSharedPreferences(activity)
 
+        viewModel.animalsFlow.onEach(::renderAnimals).launchIn(lifecycleScope)
+
+        viewModel.sourceDbFlow.onEach(::changeDbSource).launchIn(lifecycleScope)
+
         val sourceDB = prefs?.getString(
             resources.getString(R.string.key_source_db),
             resources.getString(R.string.key_source_room_db)
@@ -86,10 +92,6 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
             }
         }
 
-        viewModel.animalsFlow.onEach(::renderAnimals).launchIn(lifecycleScope)
-
-        viewModel.sourceDbFlow.onEach(::changeDbSource).launchIn(lifecycleScope)
-
     }
 
     override fun onResume() {
@@ -111,6 +113,7 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
         }else {
             menuItemDatabase?.icon = resources.getDrawable(R.drawable.ic_bar_database_c)
         }
+        viewModel.setDbSource(sourceDB!!.also { Log.i("DDD2: sourceDB = ", it) })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -126,10 +129,10 @@ class AnimalsFragment : Fragment(R.layout.animals_fragment), OnAnimalItemClickLi
                 )
                 if (sourceDB == resources.getString(R.string.key_source_room_db)){
                     menuItemDatabase?.icon = resources.getDrawable(R.drawable.ic_bar_database_c)
-                    sourceDB = resources.getString(R.string.key_source_cursor_db)
+                    sourceDB = DATABASE_SOURCE_NAME_CURSOR
                 }else {
                     menuItemDatabase?.icon = resources.getDrawable(R.drawable.ic_bar_database_r)
-                    sourceDB = resources.getString(R.string.key_source_room_db)
+                    sourceDB = DATABASE_SOURCE_NAME_ROOM
                 }
                 prefs?.edit()?.putString(
                     resources.getString(R.string.key_source_db),
