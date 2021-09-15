@@ -25,8 +25,8 @@ class FilmRepository @Inject constructor(private val filmSQLite: SQLiteDao,
     val job = CoroutineScope(Dispatchers.IO).launch {
         preferencesManager.typeDB.collect {
             when (it) {
-                TypeDB.ROOM.name -> filmBD = filmSQLite
-                TypeDB.SQL_LITE.name -> filmBD = filmDao
+                TypeDB.ROOM.name -> filmBD = filmDao
+                TypeDB.SQL_LITE.name -> filmBD = filmSQLite
             }
         }
     }
