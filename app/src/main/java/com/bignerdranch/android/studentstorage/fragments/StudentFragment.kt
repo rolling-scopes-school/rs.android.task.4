@@ -17,6 +17,7 @@ import com.bignerdranch.android.studentstorage.Callbacks
 import com.bignerdranch.android.studentstorage.R
 import com.bignerdranch.android.studentstorage.model.Student
 import com.bignerdranch.android.studentstorage.viewmodel.StudentDetailViewModel
+import java.lang.Exception
 
 class StudentFragment : Fragment() {
     private lateinit var nameStudent: EditText
@@ -28,6 +29,7 @@ class StudentFragment : Fragment() {
     }
     private var student: Student = Student()
     private var callbacks: Callbacks? = null
+    private var mayEditStudentData = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,6 +39,8 @@ class StudentFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this){
+            if (mayEditStudentData)
+                correctStudentData()
             snapBackToReality()
         }
     }
@@ -62,6 +66,7 @@ class StudentFragment : Fragment() {
 
         if (studentId == null) addStudent()
         else {
+            mayEditStudentData = true
             functionalButton.text = resources.getString(R.string.delete)
             functionalButton.background = ResourcesCompat
                 .getDrawable(resources, R.drawable.deleting_button_border, null)
@@ -75,8 +80,20 @@ class StudentFragment : Fragment() {
                         updateUI()
                     }
                 }
-            ); editStudent()
+            )
+
+            functionalButton.setOnClickListener {
+                studentDetailViewModel.deleteStudent(student)
+                Toast.makeText(context, R.string.deleting_notification, Toast.LENGTH_SHORT).show()
+                snapBackToReality()
+            }
         }
+    }
+
+    private fun updateUI() {
+        nameStudent.setText(student.name)
+        ageStudent.setText(student.age.toString())
+        ratingStudent.setText(student.rating.toString())
     }
 
     private fun addStudent(){
@@ -93,36 +110,14 @@ class StudentFragment : Fragment() {
         }
     }
 
-    private fun editStudent(){
-        nameStudent.doOnTextChanged { sequence: CharSequence?, _: Int, _: Int, _: Int ->
-            student.name = sequence.toString()
-        }
-
-        ageStudent.doOnTextChanged { sequence: CharSequence?, _: Int, _: Int, _: Int ->
-            student.age = try {
-                sequence.toString().toInt()
-            } catch (e: NumberFormatException) { 0 }
-        }
-
-        ratingStudent.doOnTextChanged { sequence: CharSequence?, _: Int, _: Int, _: Int ->
-            student.rating = try {
-                sequence.toString().toFloat()
-            } catch (e: NumberFormatException) { 0.0f }
-        }
-
-        functionalButton.setOnClickListener {
-            studentDetailViewModel.deleteStudent(student)
-            Toast.makeText(context, R.string.deleting_notification, Toast.LENGTH_SHORT).show()
-            snapBackToReality()
-        }
-    }
-
-    private fun updateUI() {
-        nameStudent.setText(student.name)
-        if (student.age != 0 && student.rating != 0.0f){
-            ageStudent.setText(student.age.toString())
-            ratingStudent.setText(student.rating.toString())
-        }
+    private fun correctStudentData(){
+        student.name = nameStudent.text.toString()
+        student.age = try {
+            ageStudent.text.toString().toInt()
+        } catch (e: Exception) {student.age}
+        student.rating = try {
+            ratingStudent.text.toString().toFloat()
+        } catch (e: Exception) {student.rating}
     }
 
     private fun snapBackToReality(){
