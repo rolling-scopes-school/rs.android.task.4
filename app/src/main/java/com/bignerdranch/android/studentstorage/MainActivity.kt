@@ -1,14 +1,17 @@
 package com.bignerdranch.android.studentstorage
 
+import android.content.Context
+import android.content.Intent
+import android.media.AudioManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.preference.PreferenceManager
 import com.bignerdranch.android.studentstorage.fragments.StudentFragment
 import com.bignerdranch.android.studentstorage.fragments.StudentListFragment
-import com.bignerdranch.android.studentstorage.fragments.StudentSortingFragment
 import com.bignerdranch.android.studentstorage.fragments.StudentPreferenceFragment
-import com.bignerdranch.android.studentstorage.model.Student
+import com.bignerdranch.android.studentstorage.fragments.StudentSortingFragment
 
 class MainActivity : AppCompatActivity(), Callbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,15 +21,25 @@ class MainActivity : AppCompatActivity(), Callbacks {
         val fm: FragmentManager = supportFragmentManager
         val currentFragment = fm.findFragmentById(R.id.fragment_container)
 
-        if (currentFragment == null) {
-            val fragment = StudentListFragment.newInstance(sortingMode = "name")
-            fm.beginTransaction().add(R.id.fragment_container, fragment).commit()
-        }
+        if (currentFragment == null)
+            onMainScreen("name")
     }
 
-    override fun onMainScreen(student: Student?, sortingMode: String) {
+    override fun onMainScreen(sortingMode: String) {
         this.setTitle(R.string.app_name)
-        startFragment(StudentListFragment.newInstance(student, sortingMode))
+        startFragment(StudentListFragment.newInstance(sortingMode))
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+
+        val keyCondition = sharedPreferences
+            .getBoolean("switchBackgroundMusicPlay", false)
+        val modeCondition = audioManager.ringerMode == AudioManager.RINGER_MODE_NORMAL
+
+        val intent = Intent(this, BackgroundSoundService::class.java)
+        if (keyCondition && modeCondition)
+            startService(intent)
+        else stopService(intent)
     }
 
     override fun onCreateNewStudent() {

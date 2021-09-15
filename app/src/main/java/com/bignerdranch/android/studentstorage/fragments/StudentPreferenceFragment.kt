@@ -18,7 +18,7 @@ class StudentPreferenceFragment : PreferenceFragmentCompat() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this){
-            callbacks?.onMainScreen(null, "name")
+            callbacks?.onMainScreen("name")
         }
     }
 

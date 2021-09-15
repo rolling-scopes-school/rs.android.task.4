@@ -17,8 +17,9 @@
     <string name="rating">рейтингу</string>
 
     <string name="add">Добавить</string>
+    <string name="delete">Удалить</string>
     <string name="adding_notification">Студент добавлен в базу данных!</string>
-    <string name="updated"> Список обновлен!</string>
+    <string name="deleting_notification">Студент удален из базы данных!</string>
 
     <string name="titleAlertDialog">Смена СУБД</string>
     <string name="messageAlertDialog">Вы хотите сменить СУБД?</string>

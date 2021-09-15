@@ -6,7 +6,6 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -69,12 +68,12 @@ class StudentDatabaseCursor(context: Context) :
         liveData { emit(getStudentsList(sortMode)) }
 
     private suspend fun getStudentsList(orderList: String):List<Student>{
-        // TODO: fix sorting (especially descend sort)
         Log.d(TAG, "Cursor get students list")
         return withContext(Dispatchers.IO) {
             val listOfStudents = mutableListOf<Student>()
             val db = writableDatabase
-            val selectQuery = "SELECT * FROM $TABLE_NAME ORDER BY $orderList"
+            val query = if (orderList == "rating") "$orderList DESC" else orderList
+            val selectQuery = "SELECT * FROM $TABLE_NAME ORDER BY $query"
             val cursor = db.rawQuery(selectQuery,null)
             cursor?.let{
                 if (cursor.moveToFirst()) {

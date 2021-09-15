@@ -18,10 +18,9 @@
     <string name="rating">rating</string>
 
     <string name="add">Add</string>
-    <string name="delete" translatable="false">Delete</string>
-
+    <string name="delete">Delete</string>
     <string name="adding_notification">Student added in database!</string>
-    <string name="updated">List updated!</string>
+    <string name="deleting_notification">Student deleted in database!</string>
 
     <string name="titleAlertDialog">Changing the DBMS</string>
     <string name="messageAlertDialog">Do you want to change your DBMS?</string>

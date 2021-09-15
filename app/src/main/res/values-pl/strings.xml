@@ -17,8 +17,10 @@
     <string name="rating">ocena</string>
 
     <string name="add">Dodaj</string>
+    <string name="delete">kasować</string>
+
     <string name="adding_notification">Uczeń dodany do bazy danych!</string>
-    <string name="updated">Lista zaktualizowana!</string>
+    <string name="deleting_notification">Uczeń usunięty z bazy danych!</string>
 
     <string name="titleAlertDialog">Zmiana DBMS</string>
     <string name="messageAlertDialog">Czy chcesz zmienić swój DBMS?</string>

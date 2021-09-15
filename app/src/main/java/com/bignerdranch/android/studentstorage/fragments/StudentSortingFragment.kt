@@ -23,7 +23,7 @@ class StudentSortingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this){
-            callbacks?.onMainScreen(null, "name")
+            callbacks?.onMainScreen("name")
         }
     }
 
@@ -41,7 +41,7 @@ class StudentSortingFragment : Fragment() {
         for (i in idButtonArray.indices){
             buttons[i] = view.findViewById(idButtonArray[i])
             buttons[i]?.setOnClickListener {
-                callbacks?.onMainScreen(null, buttons[i]?.text.toString())
+                callbacks?.onMainScreen(buttons[i]?.text.toString())
             }
         }
     }
