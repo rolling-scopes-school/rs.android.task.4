@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 interface DatabaseStrategy {
 
     suspend fun addFilm(film: Film)
-    suspend fun updateFilm (film: Film)
-    suspend fun deleteFilm (film: Film)
+    suspend fun updateFilm(film: Film)
+    suspend fun deleteFilm(film: Film)
 
     fun readAllData(): Flow<List<Film>>
     fun sortedByTitle(): Flow<List<Film>>

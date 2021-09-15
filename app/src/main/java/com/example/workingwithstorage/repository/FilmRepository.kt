@@ -1,10 +1,11 @@
 package com.example.workingwithstorage.repository
 
+import com.example.workingwithstorage.common.logDebug
 import com.example.workingwithstorage.data.DatabaseStrategy
 import com.example.workingwithstorage.data.PreferenceManager
 import com.example.workingwithstorage.data.SQLite.SQLiteDao
+import com.example.workingwithstorage.data.TypeDB
 import com.example.workingwithstorage.data.room.FilmDao
-import com.example.workingwithstorage.data.room.TypeDB
 import com.example.workingwithstorage.model.Film
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,9 +16,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FilmRepository @Inject constructor(private val filmSQLite: SQLiteDao,
-                                         private val filmDao: FilmDao,
-                                         private val preferencesManager: PreferenceManager
+class FilmRepository @Inject constructor(
+    private val filmSQLite: SQLiteDao,
+    private val filmDao: FilmDao,
+    private val preferencesManager: PreferenceManager
 ) {
 
     private var filmBD: DatabaseStrategy = filmDao
@@ -31,31 +33,32 @@ class FilmRepository @Inject constructor(private val filmSQLite: SQLiteDao,
         }
     }
 
-    fun getAll (): Flow<List<Film>> {
+
+    fun getAll(): Flow<List<Film>> {
         return filmBD.readAllData()
     }
 
-    fun sortedByTitle (): Flow<List<Film>> {
+    fun sortedByTitle(): Flow<List<Film>> {
         return filmBD.sortedByTitle()
     }
 
-    fun sortedByCountry (): Flow<List<Film>> {
+    fun sortedByCountry(): Flow<List<Film>> {
         return filmBD.sortedByCountry()
     }
 
-    fun sortedByYear (): Flow<List<Film>> {
+    fun sortedByYear(): Flow<List<Film>> {
         return filmBD.sortedByYear()
     }
 
-    suspend fun addFilm(film: Film){
+    suspend fun addFilm(film: Film) {
         filmBD.addFilm(film)
     }
 
-    suspend fun updateFilm (film: Film){
+    suspend fun updateFilm(film: Film) {
         filmBD.updateFilm(film)
     }
 
-    suspend fun deleteFilm (film: Film){
+    suspend fun deleteFilm(film: Film) {
         filmBD.deleteFilm(film)
     }
 

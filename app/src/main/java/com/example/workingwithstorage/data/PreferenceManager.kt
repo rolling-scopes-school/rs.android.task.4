@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.datastore.preferences.createDataStore
 import androidx.datastore.preferences.edit
 import androidx.datastore.preferences.preferencesKey
-import com.example.workingwithstorage.data.room.TypeDB
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,8 +12,8 @@ import javax.inject.Singleton
 
 // Вижу есть сетап под Dagger/Dagger Hilt, но он не используется :(
 @Singleton
-class PreferenceManager @Inject constructor(@ApplicationContext context: Context){
-    private val dataStore = context.createDataStore(HUMAN_PREFERENCES)
+class PreferenceManager @Inject constructor(@ApplicationContext context: Context) {
+    private val dataStore = context.createDataStore(FILM_PREFERENCES)
 
     val typeDB: Flow<String> = dataStore.data.map {
         it[PreferencesKeys.TYPE_DB] ?: TypeDB.ROOM.name
@@ -49,7 +48,7 @@ object PreferencesKeys {
     val UPDATE_DB = preferencesKey<String>(TRIGGER_KEY)
 }
 
-const val HUMAN_PREFERENCES = "human_preferences"
+const val FILM_PREFERENCES = "film_preferences"
 const val TYPE_DB_KEY = "db_type"
 
 const val TRIGGER_KEY = "trigger"

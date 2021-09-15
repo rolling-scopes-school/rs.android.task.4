@@ -1,12 +1,7 @@
 package com.example.workingwithstorage.data.SQLite
 
 import android.content.ContentValues
-import com.example.workingwithstorage.data.DatabaseStrategy
-import com.example.workingwithstorage.data.PreferenceManager
-import com.example.workingwithstorage.data.room.COLUMN_COUNTRY
-import com.example.workingwithstorage.data.room.COLUMN_TITLE
-import com.example.workingwithstorage.data.room.COLUMN_YEAR
-import com.example.workingwithstorage.data.room.TABLE_NAME
+import com.example.workingwithstorage.data.*
 import com.example.workingwithstorage.model.Film
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -54,14 +49,6 @@ class SQLiteDao @Inject constructor(
         val listOfTopics = mutableListOf<Film>()
         val db = sqlLite.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
-//        if (cursor.moveToFirst()) {
-//            do {
-//                listOfTopics.add(getInt(0),
-//                    getString(1),
-//                    getInt(2),
-//                    getString(3),)
-//            } while (cursor.moveToNext())
-//        }
         with(cursor) {
             while (moveToNext()) {
                 listOfTopics.add(
@@ -75,6 +62,9 @@ class SQLiteDao @Inject constructor(
                 )
             }
         }
+        cursor.close()
+        db.close()
+        preferencesManager.trigger
 
         // [nit]
         // Этот Flow отправляет только одно значение и не обновляется динамически
@@ -109,7 +99,9 @@ class SQLiteDao @Inject constructor(
                 )
             }
         }
-
+        cursor.close()
+        db.close()
+        preferencesManager.trigger
         return flowOf(listOfTopics)
     }
 
@@ -135,7 +127,9 @@ class SQLiteDao @Inject constructor(
                 )
             }
         }
-
+        cursor.close()
+        db.close()
+        preferencesManager.trigger
         return flowOf(listOfTopics)
     }
 
@@ -161,7 +155,9 @@ class SQLiteDao @Inject constructor(
                 )
             }
         }
-
+        cursor.close()
+        db.close()
+        preferencesManager.trigger
         return flowOf(listOfTopics)
     }
 }

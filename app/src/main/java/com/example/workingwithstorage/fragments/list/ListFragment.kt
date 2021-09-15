@@ -18,6 +18,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 class ListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding: FragmentListBinding get() = requireNotNull(_binding)
+
     @InternalCoroutinesApi
     private lateinit var mFilmViewModel: FilmViewModel
     private val adapter = ListAdapter()
@@ -43,12 +44,13 @@ class ListFragment : Fragment() {
 
         //FilmViewModel
         mFilmViewModel = ViewModelProvider(this).get(FilmViewModel::class.java)
-        mFilmViewModel.allFilm.observe(viewLifecycleOwner, Observer {film  ->
+        mFilmViewModel.allFilm.observe(viewLifecycleOwner, Observer { film ->
             adapter.setData(film)
         })
 
         //add menu
         setHasOptionsMenu(true)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -57,10 +59,10 @@ class ListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        when (item.itemId) {
             R.id.menu_filter ->
                 findNavController().navigate(R.id.action_listFragment_to_filterFragment)
-     //       R.id.menu_sql -> mFilmViewModel
+            //       R.id.menu_sql -> mFilmViewModel
         }
 
         return super.onOptionsItemSelected(item)
@@ -68,21 +70,20 @@ class ListFragment : Fragment() {
 
     @InternalCoroutinesApi
     var listener: SharedPreferences.OnSharedPreferenceChangeListener =
-        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            when (key) {
-                "prefTitle" -> mFilmViewModel.sortedByTitle()
-                "prefCountry" -> mFilmViewModel.sortedByCountry()
-                "prefYear" -> mFilmViewModel.sortedByYear()
-
+        SharedPreferences.OnSharedPreferenceChangeListener { preference, key ->
+            val value = preference.getString(key, "Title")
+            when (value) {
+                "Title" -> mFilmViewModel.sortedByTitle()
+                "Country" -> mFilmViewModel.sortedByCountry()
+                "Year" -> mFilmViewModel.sortedByYear()
             }
-            logDebug(" ключ $key")
+            logDebug(" ключ $value")
         }
 
     @InternalCoroutinesApi
     override fun onResume() {
         super.onResume()
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        logDebug("preferences $preferences")
         preferences.registerOnSharedPreferenceChangeListener(listener)
 
     }
