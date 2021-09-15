@@ -3,6 +3,7 @@ package com.example.workingwithstorage.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.workingwithstorage.data.PreferenceManager
@@ -35,6 +36,12 @@ class FilmViewModel(application: Application): AndroidViewModel (application) {
 
     fun sortedByTitle(){
         viewModelScope.launch (Dispatchers.IO){
+            // Здесь делается не совсем честная подмена источника данных:
+            // кто-то уже мог быть подписан на прошлую версию `allFilm: LiveData`
+            // и поэтому те обсерверы не получат новые данные.
+            // Глянуть как советуют избежать такой ситуации можно здесь:
+            // https://stackoverflow.com/questions/48081950/how-can-i-change-in-viewmodel-source-of-my-livedata-from-room-dao
+            // https://developer.android.com/topic/libraries/architecture/livedata#transform_livedata
             allFilm = repository.sortedByTitle().asLiveData()
         }
     }
