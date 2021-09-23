@@ -17,5 +17,7 @@
     <string name="room">Room</string>
     <string name="cursor">Cursor</string>
     <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
     <string name="sort">Please choose how you want to sort the animals!</string>
 </resources>

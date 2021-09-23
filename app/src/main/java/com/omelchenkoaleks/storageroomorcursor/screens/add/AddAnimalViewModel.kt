@@ -30,5 +30,10 @@ class AddAnimalViewModel : ViewModel() {
         }
     }
 
+    fun deleteAnimal(animal: Animal) {
+        viewModelScope.launch {
+            animalsRepository.deleteAnimal(animal)
+        }
+    }
 
 }

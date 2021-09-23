@@ -14,24 +14,25 @@ class SwitchPreferenceFragment : PreferenceFragmentCompat() {
         super.onCreate(savedInstanceState)
 
         val switchRoom = findPreference(getString(R.string.to_room)) as SwitchPreference?
-        switchRoom?.isChecked = true
-
         val switchCursor = findPreference(getString(R.string.to_cursor)) as SwitchPreference?
+
+        when {
+            switchCursor?.isChecked == true -> switchCursor.isChecked = true
+            switchRoom?.isChecked == true -> switchRoom.isChecked = true
+        }
 
         switchRoom.let {
             it?.setOnPreferenceChangeListener { _, _ ->
-                if (switchCursor?.isChecked == true) {
-                    switchCursor.isChecked = false
-                }
+                switchCursor?.isChecked = false
+                switchRoom?.isChecked = true
                 true
             }
         }
 
         switchCursor.let {
             it?.setOnPreferenceChangeListener { _, _ ->
-                if (switchRoom?.isChecked == true) {
-                    switchRoom.isChecked = false
-                }
+                switchRoom?.isChecked = false
+                switchCursor?.isChecked = true
                 true
             }
         }

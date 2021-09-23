@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.omelchenkoaleks.storageroomorcursor.R
 import com.omelchenkoaleks.storageroomorcursor.adapter.AnimalsAdapter
 import com.omelchenkoaleks.storageroomorcursor.databinding.FragmentAnimalsBinding
+import com.omelchenkoaleks.storageroomorcursor.listener.ItemClickListener
 import com.omelchenkoaleks.storageroomorcursor.model.Animal
 
 class AnimalsFragment : Fragment() {
@@ -26,17 +27,19 @@ class AnimalsFragment : Fragment() {
 
     private var fab: FloatingActionButton? = null
 
+    private var callBack: CallBack? = null
+    private var itemClickListener: ItemClickListener? = null
+
     interface CallBack {
         fun openAddAnimalFragment()
         fun openSortFragment()
         fun openSwitchFragment()
     }
 
-    private var callBack: CallBack? = null
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = context as CallBack
+        itemClickListener = context as ItemClickListener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +58,7 @@ class AnimalsFragment : Fragment() {
         fab = binding.btnAddAnimal
         recycler = binding.recyclerView
         recycler.layoutManager = LinearLayoutManager(context)
-        // TODO: will add listener
-        adapter = AnimalsAdapter()
+        adapter = itemClickListener?.let { AnimalsAdapter(it) }
         recycler.adapter = adapter
         fab?.setOnClickListener {
             callBack?.openAddAnimalFragment()

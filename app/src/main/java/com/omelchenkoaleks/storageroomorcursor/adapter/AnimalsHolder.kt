@@ -3,9 +3,11 @@ package com.omelchenkoaleks.storageroomorcursor.adapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.omelchenkoaleks.storageroomorcursor.databinding.AnimalItemBinding
+import com.omelchenkoaleks.storageroomorcursor.listener.ItemClickListener
 import com.omelchenkoaleks.storageroomorcursor.model.Animal
 
 class AnimalsHolder(
+    private val itemClickListener: ItemClickListener,
     binding: AnimalItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     private var animal: Animal? = null
@@ -19,6 +21,8 @@ class AnimalsHolder(
         age.text = animal.age.toString()
         breed.text = animal.breed
 
-        // TODO: will need to add listener
+        itemView.setOnClickListener {
+            itemClickListener.onItemClick(animal.id)
+        }
     }
 }

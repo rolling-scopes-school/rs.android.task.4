@@ -7,13 +7,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.omelchenkoaleks.storageroomorcursor.databinding.FragmentAddAnimalBinding
-
-private const val ID = "id"
 
 class AddAnimalFragment : Fragment() {
 
@@ -23,6 +20,8 @@ class AddAnimalFragment : Fragment() {
     private val viewModel: AddAnimalViewModel by viewModels()
     private var id: Int? = null
     private var saveBtn: AppCompatButton? = null
+    private var updateBtn: AppCompatButton? = null
+    private var deleteBtn: AppCompatButton? = null
 
     interface CallBack {
         fun openAnimalsFragment()
@@ -58,7 +57,7 @@ class AddAnimalFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        id = arguments?.getInt(ID)
+        id = arguments?.getInt("id")
         id?.let { viewModel.load(it) }
     }
 
@@ -70,6 +69,14 @@ class AddAnimalFragment : Fragment() {
         _binding = FragmentAddAnimalBinding.inflate(inflater, container, false)
 
         saveBtn = binding.btnSaveAnimal
+        updateBtn = binding.btnUpdateAnimal
+        deleteBtn = binding.btnDeleteAnimal
+
+        if (id !== null) {
+            saveBtn?.visibility = View.INVISIBLE
+            updateBtn?.visibility = View.VISIBLE
+            deleteBtn?.visibility = View.VISIBLE
+        }
 
         binding.etName.addTextChangedListener(nameWatcher)
         binding.etAge.addTextChangedListener(ageWatcher)
@@ -81,6 +88,16 @@ class AddAnimalFragment : Fragment() {
                 viewModel.updateAnimal(viewModel.animal)
             callBack?.openAnimalsFragment()
 
+        }
+
+        updateBtn?.setOnClickListener {
+            viewModel.updateAnimal(viewModel.animal)
+            callBack?.openAnimalsFragment()
+        }
+
+        deleteBtn?.setOnClickListener {
+            viewModel.deleteAnimal(viewModel.animal)
+            callBack?.openAnimalsFragment()
         }
 
         return binding.root
