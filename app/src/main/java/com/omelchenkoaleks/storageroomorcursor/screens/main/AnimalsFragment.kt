@@ -2,9 +2,7 @@ package com.omelchenkoaleks.storageroomorcursor.screens.main
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
@@ -30,8 +28,7 @@ class AnimalsFragment : Fragment() {
 
     interface CallBack {
         fun openAddAnimalFragment()
-
-        // TODO: will not forget about listener
+        fun openSortFragment()
     }
 
     private var callBack: CallBack? = null
@@ -39,6 +36,11 @@ class AnimalsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callBack = context as CallBack
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -84,6 +86,20 @@ class AnimalsFragment : Fragment() {
         adapter?.submitList(animals)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.sort_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.sort_settings -> {
+                callBack?.openSortFragment()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
