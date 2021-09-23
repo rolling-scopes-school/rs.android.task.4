@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/animalsFragment">
+
+    <fragment
+        android:id="@+id/animalsFragment"
+        android:name="com.omelchenkoaleks.storageroomorcursor.screens.main.AnimalsFragment"
+        android:label="AnimalsFragment" >
+        <action
+            android:id="@+id/action_animalsFragment_to_addAnimalFragment"
+            app:destination="@id/addAnimalFragment" />
+        <action
+            android:id="@+id/action_animalsFragment_to_sortFragment"
+            app:destination="@id/sortFragment" />
+        <action
+            android:id="@+id/action_animalsFragment_to_switchFragment"
+            app:destination="@id/switchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAnimalFragment"
+        android:name="com.omelchenkoaleks.storageroomorcursor.screens.add.AddAnimalFragment"
+        android:label="AddAnimalFragment" />
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="com.omelchenkoaleks.storageroomorcursor.screens.sort.SortFragment"
+        android:label="fragment_sort"
+        tools:layout="@layout/fragment_sort" />
+    <fragment
+        android:id="@+id/switchFragment"
+        android:name="com.omelchenkoaleks.storageroomorcursor.screens.to_switch_db.SwitchFragment"
+        android:label="SwitchFragment" />
+</navigation>
