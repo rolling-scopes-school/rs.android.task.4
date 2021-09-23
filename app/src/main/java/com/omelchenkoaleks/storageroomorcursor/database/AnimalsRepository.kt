@@ -1,6 +1,7 @@
 package com.omelchenkoaleks.storageroomorcursor.database
 
 import androidx.lifecycle.LiveData
+import com.omelchenkoaleks.storageroomorcursor.database.room.AnimalDao
 import com.omelchenkoaleks.storageroomorcursor.model.Animal
 
 class AnimalsRepository private constructor(daoFactory: DaoFactory) {

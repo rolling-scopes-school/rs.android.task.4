@@ -1,4 +1,4 @@
-package com.omelchenkoaleks.storageroomorcursor.database
+package com.omelchenkoaleks.storageroomorcursor.database.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

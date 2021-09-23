@@ -1,23 +1,22 @@
-package com.omelchenkoaleks.storageroomorcursor.screens.sort
+package com.omelchenkoaleks.storageroomorcursor.screens.to_switch_db
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.omelchenkoaleks.storageroomorcursor.R
-import com.omelchenkoaleks.storageroomorcursor.databinding.FragmentSortBinding
+import androidx.fragment.app.Fragment
+import com.omelchenkoaleks.storageroomorcursor.databinding.FragmentSwitchBinding
 
-class SortFragment : Fragment() {
+class SwitchFragment : Fragment() {
 
-    private var _binding: FragmentSortBinding? = null
+    private var _binding: FragmentSwitchBinding? = null
     private val binding get() = requireNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSortBinding.inflate(inflater, container, false)
+        _binding = FragmentSwitchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -25,5 +24,4 @@ class SortFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

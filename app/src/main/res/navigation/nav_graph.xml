@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_animalsFragment_to_sortFragment"
             app:destination="@id/sortFragment" />
+        <action
+            android:id="@+id/action_animalsFragment_to_switchFragment"
+            app:destination="@id/switchFragment" />
     </fragment>
     <fragment
         android:id="@+id/addAnimalFragment"
@@ -25,4 +28,8 @@
         android:name="com.omelchenkoaleks.storageroomorcursor.screens.sort.SortFragment"
         android:label="fragment_sort"
         tools:layout="@layout/fragment_sort" />
+    <fragment
+        android:id="@+id/switchFragment"
+        android:name="com.omelchenkoaleks.storageroomorcursor.screens.to_switch_db.SwitchFragment"
+        android:label="SwitchFragment" />
 </navigation>

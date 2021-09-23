@@ -8,12 +8,10 @@ import com.omelchenkoaleks.storageroomorcursor.R
 class SortPreferenceFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.sort, rootKey)
-//        return
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        addPreferencesFromResource(R.xml.sort)
 
         val switchName = findPreference(getString(R.string.key_name)) as SwitchPreference?
         val switchAge = findPreference(getString(R.string.key_age)) as SwitchPreference?

@@ -29,6 +29,7 @@ class AnimalsFragment : Fragment() {
     interface CallBack {
         fun openAddAnimalFragment()
         fun openSortFragment()
+        fun openSwitchFragment()
     }
 
     private var callBack: CallBack? = null
@@ -92,9 +93,13 @@ class AnimalsFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.sort_settings -> {
                 callBack?.openSortFragment()
+                true
+            }
+            R.id.change_database -> {
+                callBack?.openSwitchFragment()
                 true
             }
             else -> super.onOptionsItemSelected(item)

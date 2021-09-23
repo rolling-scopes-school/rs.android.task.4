@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         navController?.navigate(R.id.action_animalsFragment_to_sortFragment)
     }
 
+    override fun openSwitchFragment() {
+        navController?.navigate(R.id.action_animalsFragment_to_switchFragment)
+    }
+
     override fun openAnimalsFragment() {
         navController?.popBackStack()
     }
