@@ -25,5 +25,4 @@
     <string name="deleting_notification">Студэнт выдалены ў базе дадзеных!</string>
 
     <string name="DBSMPreference">Пераключыць Cursor/Room</string>
-    <string name="backgroundMusicPreference">Заўсёды прайграваць фонавую музыку</string>
 </resources>

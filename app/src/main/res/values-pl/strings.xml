@@ -25,5 +25,4 @@
     <string name="deleting_notification">Uczeń usunięty z bazy danych!</string>
 
     <string name="DBSMPreference">Przełącz Cursor/Room</string>
-    <string name="backgroundMusicPreference">Zawsze odtwarzaj muzykę w tle</string>
 </resources>

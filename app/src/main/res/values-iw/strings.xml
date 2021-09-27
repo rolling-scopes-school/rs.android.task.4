@@ -25,5 +25,4 @@
     <string name="deleting_notification"> תלמיד נמחק במסד הנתונים! </string>
 
     <string name="DBSMPreference">מתג Cursor/Room</string>
-    <string name="backgroundMusicPreference">תמיד תשמיע מוזיקת רקע</string>
 </resources>
