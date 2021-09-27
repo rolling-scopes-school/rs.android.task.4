@@ -20,6 +20,7 @@
     <string name="add">Dodaj</string>
     <string name="delete">kasować</string>
 
+    <string name="input_error_notification">Nieprawidłowe wprowadzone dane!</string>
     <string name="adding_notification">Uczeń dodany do bazy danych!</string>
     <string name="deleting_notification">Uczeń usunięty z bazy danych!</string>
 

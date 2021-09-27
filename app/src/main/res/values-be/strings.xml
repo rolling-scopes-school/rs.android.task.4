@@ -20,6 +20,7 @@
     <string name="add">Дадаць</string>
     <string name="delete">выдаліць</string>
 
+    <string name="input_error_notification">Няправільны ўвод дадзеных!</string>
     <string name="adding_notification">Студэнт дададзены ў базу дадзеных!</string>
     <string name="deleting_notification">Студэнт выдалены ў базе дадзеных!</string>
 

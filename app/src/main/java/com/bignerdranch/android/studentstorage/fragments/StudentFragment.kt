@@ -10,14 +10,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.bignerdranch.android.studentstorage.Callbacks
 import com.bignerdranch.android.studentstorage.R
 import com.bignerdranch.android.studentstorage.model.Student
 import com.bignerdranch.android.studentstorage.viewmodel.StudentDetailViewModel
-import java.lang.Exception
 
 class StudentFragment : Fragment() {
     private lateinit var nameStudent: EditText
@@ -106,7 +104,8 @@ class StudentFragment : Fragment() {
                 studentDetailViewModel.addStudent(student)
                 Toast.makeText(context, R.string.adding_notification, Toast.LENGTH_SHORT).show()
                 snapBackToReality()
-            }
+            } else Toast.makeText(context,
+                R.string.input_error_notification, Toast.LENGTH_SHORT).show()
         }
     }
 

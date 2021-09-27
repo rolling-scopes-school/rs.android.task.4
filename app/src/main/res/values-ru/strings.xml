@@ -20,6 +20,7 @@
     <string name="add">Добавить</string>
     <string name="delete">Удалить</string>
 
+    <string name="input_error_notification">Неверный ввод данных!</string>
     <string name="adding_notification">Студент добавлен в базу данных!</string>
     <string name="deleting_notification">Студент удален из базы данных!</string>
 

@@ -20,6 +20,7 @@
     <string name="add">לְהוֹסִיף</string>
     <string name="delete">לִמְחוֹק</string>
 
+    <string name="input_error_notification">קלט נתונים לא חוקי!</string>
     <string name="adding_notification">סטודנט נוסף במסד הנתונים!</string>
     <string name="deleting_notification"> תלמיד נמחק במסד הנתונים! </string>
 

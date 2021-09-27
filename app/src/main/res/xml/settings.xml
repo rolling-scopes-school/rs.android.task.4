@@ -5,9 +5,4 @@
         android:key="switchDatabaseRealization"
         android:title="@string/DBSMPreference"
         android:defaultValue="false"/>
-
-    <SwitchPreference
-        android:key="switchBackgroundMusicPlay"
-        android:title="@string/backgroundMusicPreference"
-        android:defaultValue="false"/>
 </PreferenceScreen>
